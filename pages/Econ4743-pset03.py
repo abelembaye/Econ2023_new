@@ -129,6 +129,7 @@ else:
                     **{q: user_inputs[q] for q in hw_column_names}, 'username': st.session_state.username}
                 s.execute(sql, params)
                 s.commit()
+            s.close()
             st.write(
                 " Your work has been submitted successfully to database, but download a pdf file below for gradescope submission! 👍")
 
@@ -167,7 +168,7 @@ else:
         progress.text('Generating PDF...')
         progress.progress(50)
 
-        incloud = True  # False  #
+        incloud = False  # True  #
 
         if incloud:
             pdf = pdfkit.from_string(html, False)  # when in cloud deployment

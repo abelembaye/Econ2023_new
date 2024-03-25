@@ -7,7 +7,7 @@ import random
 # import mysqlclient  # pip install mysqlclient (hard to work with this pacakge)
 # import PIL
 from PIL import Image
-import pymysql  # pip install pymysql
+# import pymysql  # pip install pymysql
 import io
 from io import BytesIO
 import base64
@@ -27,7 +27,6 @@ import toml
 # from streamlit_drawable_canvas import st_canvas
 # from fn_drawables import process_canvas
 from fn_fileupload import process_image
-
 from menu import menu_with_redirect
 
 # Redirect to Login.py if not logged in, otherwise show the navigation menu
@@ -169,7 +168,7 @@ else:
         progress.text('Generating PDF...')
         progress.progress(50)
 
-        incloud = True  # False  #
+        incloud = False  # True  #
 
         if incloud:
             pdf = pdfkit.from_string(html, False)  # when in cloud deployment

@@ -8,8 +8,12 @@ def authenticated_menu():
     if st.session_state.course == "Econ3333" and st.session_state.username != None:
         st.sidebar.page_link("pages/Econ3333-pset03.py", label="Econ3333-pset03",
                              disabled=st.session_state.course != "Econ3333")
+        st.sidebar.page_link("pages/Econ3333-regression.py", label="Econ3333-regression",
+                             disabled=st.session_state.course != "Econ3333")
     elif st.session_state.course == "Econ4743" and st.session_state.username != None:
         st.sidebar.page_link("pages/Econ4743-pset03.py", label="Econ4743-pset03",
+                             disabled=st.session_state.course != "Econ4743")
+        st.sidebar.page_link("pages/Econ4743-Exercises.py", label="Econ4743-Exercises",
                              disabled=st.session_state.course != "Econ4743")
 
 

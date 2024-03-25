@@ -13,6 +13,16 @@ from menu import menu
 
 st.set_page_config(layout="wide")
 
+hide_st_style = """
+            <style>
+            MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            header {visibility: hidden;}
+            </style>
+            """
+st.markdown(hide_st_style, unsafe_allow_html=True)
+
+# db = False  # True # False
 
 # Initialize st.session_state.username to None
 if "username" not in st.session_state:
@@ -24,18 +34,7 @@ if "authenticator" not in st.session_state:
 if "authentication_status" not in st.session_state:
     st.session_state["authentication_status"] = None
 
-
-hide_st_style = """
-            <style>
-            MainMenu {visibility: hidden;}
-            footer {visibility: hidden;}
-            header {visibility: hidden;}
-            </style>
-            """
-st.markdown(hide_st_style, unsafe_allow_html=True)
-
-
-# ----------------------------------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------------------
 conn = st.connection('mysql', type='sql', ttl=60)
 
 # rosters_df = conn.query('SELECT * from rosters')
@@ -48,17 +47,6 @@ def get_rosters():
 
 rosters_df = get_rosters()
 
-# st.write(rosters_df)
-# query = f"SELECT * from Econ3333pset03b WHERE username = 'asau';"
-# hw_df = conn.query(query)
-# st.write(hw_df)
-# sys.exit()
-
-# ----------------------------------------------------------------------------------------------------------
-
-# Initialize st.session_state.username to None
-if "username" not in st.session_state:
-    st.session_state["username"] = None
 
 # Initialize st.session_state.course to None
 if "course" not in st.session_state:
@@ -81,7 +69,6 @@ selection = st.selectbox(
     on_change=set_course,
 )
 
-
 # Create a placeholder for the info message
 info_message = st.empty()
 
@@ -99,10 +86,6 @@ else:
 # If info is not None and not an empty string, otherwise change it to dictionary
 if pd.notnull(info) and info != '':
     config = json.loads(info)  # loads the string to dictionary
-
-# st.write(f"config file: {config}")
-
-# sys.exit()
 
 
 authenticator = stauth.Authenticate(
