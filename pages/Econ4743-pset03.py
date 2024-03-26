@@ -168,7 +168,7 @@ else:
         progress.text('Generating PDF...')
         progress.progress(50)
 
-        incloud = False  # True  #
+        incloud = True  # True  #
 
         if incloud:
             pdf = pdfkit.from_string(html, False)  # when in cloud deployment
