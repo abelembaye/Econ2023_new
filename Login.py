@@ -44,7 +44,7 @@ if "authentication_status" not in st.session_state:
     st.session_state["authentication_status"] = None
 
 
-st.write("incloud: ", st.session_state.incloud)
+# st.write("incloud: ", st.session_state.incloud)
 # ------------------------------------------------------------------------------------------
 conn = st.connection('mysql', type='sql', ttl=60)
 
