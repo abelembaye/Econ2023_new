@@ -46,7 +46,7 @@ if "authentication_status" not in st.session_state:
 
 # st.write("incloud: ", st.session_state.incloud)
 # ------------------------------------------------------------------------------------------
-conn = st.connection('mysql', type='sql', ttl=60)
+conn = st.connection('students_db', type='sql', ttl=60)
 
 # rosters_df = conn.query('SELECT * from rosters')
 
