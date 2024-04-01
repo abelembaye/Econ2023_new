@@ -22,6 +22,8 @@ if "incloud" not in st.session_state:
     # change this to True to enable cloud deployment
     st.session_state["incloud"] = True  # False
 
+# st.write("incloud: ", st.session_state.incloud)
+
 hide_st_style = """
             <style>
             MainMenu {visibility: hidden;}
@@ -43,20 +45,17 @@ if "authenticator" not in st.session_state:
 if "authentication_status" not in st.session_state:
     st.session_state["authentication_status"] = None
 
-
-st.write("incloud: ", st.session_state.incloud)
 # ------------------------------------------------------------------------------------------
-conn = st.connection('mysql', type='sql', ttl=60)
+conn = st.connection('students_db', type='sql', ttl=60)
 
 # rosters_df = conn.query('SELECT * from rosters')
 
 
-@st.cache_data
-def get_rosters():
-    return conn.query('SELECT * from rosters')
+# @st.cache_data
+# def get_rosters():
+#     return conn.query('SELECT * from rosters')
 
-
-rosters_df = get_rosters()
+# rosters_df = get_rosters()
 
 
 # Initialize st.session_state.course to None
