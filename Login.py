@@ -20,7 +20,7 @@ st.set_page_config(layout="wide")
 # Initialize st.session_state.incloud to None
 if "incloud" not in st.session_state:
     # change this to True to enable cloud deployment
-    st.session_state["incloud"] = True  # False
+    st.session_state["incloud"] = True  # False # True
 
 # st.write("incloud: ", st.session_state.incloud)
 
@@ -46,7 +46,7 @@ if "authentication_status" not in st.session_state:
     st.session_state["authentication_status"] = None
 
 
-#st.write("incloud: ", st.session_state.incloud)
+# st.write("incloud: ", st.session_state.incloud)
 # ------------------------------------------------------------------------------------------
 conn = st.connection('students_db', type='sql', ttl=60)
 
