@@ -1,4 +1,9 @@
 
+import seaborn as sns  # pip install seaborn
+import statsmodels.api as sm  # pip install statsmodels
+from authent_streamlit_doc import check_password
+from logout_button import logout_button
+import hmac
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -17,23 +22,22 @@ import pdfkit  # pip install pdfkit
 from jinja2 import Environment, PackageLoader, select_autoescape, FileSystemLoader
 import time
 from time import sleep
-import streamlit_authenticator as stauth  # pip install streamlit-authenticator
-import mysql.connector  # pip install mysql-connector-python
-from mysql.connector import FieldType  # pip install mysql-connector-python
+# import streamlit_authenticator as stauth  # pip install streamlit-authenticator
+# import mysql.connector  # pip install mysql-connector-python
+# from mysql.connector import FieldType  # pip install mysql-connector-python
 from sqlalchemy.sql import text  # pip install SQLAlchemy
+import sqlite3  # pip install db-sqlite3
 import sys
 import os
-import toml
+# import toml
 # from streamlit_drawable_canvas import st_canvas
 # from fn_drawables import process_canvas
 from fn_fileupload import process_image
 from menu import menu_with_redirect
-import statsmodels.api as sm  # pip install statsmodels
-import seaborn as sns  # pip install seaborn
+import sqlalchemy.exc
 
 # Redirect to Login.py if not logged in, otherwise show the navigation menu
 menu_with_redirect()
-
 
 hide_st_style = """
             <style>
@@ -44,14 +48,14 @@ hide_st_style = """
             """
 st.markdown(hide_st_style, unsafe_allow_html=True)
 
-authenticator = st.session_state.authenticator
-
-if st.session_state["authentication_status"]:
-    authenticator.logout("Logout", "sidebar")
-# ---------------------------------------------------------------------------------------------------------------
-
-# Initialize st.session_state.course to None
-
+hide_st_style = """
+            <style>
+            MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            header {visibility: hidden;}
+            </style>
+            """
+st.markdown(hide_st_style, unsafe_allow_html=True)
 
 if "username" not in st.session_state or st.session_state.username == '' or st.session_state.username == None:
     st.warning("You haven't logged in; Please login.")
@@ -60,10 +64,16 @@ elif "course" not in st.session_state or st.session_state.course == '' or st.ses
     st.warning(
         "You are not allowed to access this courese with the credentials you submitted.")
 
-# ---------------------------------------------------------------------------------------------------------------
 
 else:
-    # 1. Title and Subheader
+    st.title("Econ 3333 Regression Analysis")
+    logout_button()
+
+    # sqlite database connection (local and unique to the user)
+    # conn = st.connection('students', type='sql', ttl=60)
+    conn = st.connection('students_db', type='sql', ttl=0)
+    tablename = "Econ3333_pset03e"
+    username = st.session_state.username
     st.title("Regression Analysis")
     st.subheader("Regression Analysis Using Python & Streamlit")
 
