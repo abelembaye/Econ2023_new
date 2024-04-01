@@ -19,8 +19,8 @@ from datetime import date
 from jinja2 import Environment, PackageLoader, select_autoescape, FileSystemLoader
 import time
 from time import sleep
-import streamlit_authenticator as stauth  # pip install streamlit-authenticator
-import mysql.connector  # pip install mysql-connector-python
+# import streamlit_authenticator as stauth  # pip install streamlit-authenticator
+# import mysql.connector  # pip install mysql-connector-python
 # from mysql.connector import FieldType  # pip install mysql-connector-python
 from sqlalchemy.sql import text  # pip install SQLAlchemy
 import sys

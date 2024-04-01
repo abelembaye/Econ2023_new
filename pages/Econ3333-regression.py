@@ -7,7 +7,7 @@ import random
 # import mysqlclient  # pip install mysqlclient (hard to work with this pacakge)
 # import PIL
 from PIL import Image
-import pymysql  # pip install pymysql
+# import pymysql  # pip install pymysql
 import io
 from io import BytesIO
 import base64
@@ -18,8 +18,8 @@ from jinja2 import Environment, PackageLoader, select_autoescape, FileSystemLoad
 import time
 from time import sleep
 import streamlit_authenticator as stauth  # pip install streamlit-authenticator
-import mysql.connector  # pip install mysql-connector-python
-from mysql.connector import FieldType  # pip install mysql-connector-python
+# import mysql.connector  # pip install mysql-connector-python
+# from mysql.connector import FieldType  # pip install mysql-connector-python
 from sqlalchemy.sql import text  # pip install SQLAlchemy
 import sys
 import os
