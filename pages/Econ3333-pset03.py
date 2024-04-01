@@ -1,4 +1,7 @@
 
+from authent_streamlit_doc import check_password
+from logout_button import logout_button
+import hmac
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -17,21 +20,22 @@ import pdfkit  # pip install pdfkit
 from jinja2 import Environment, PackageLoader, select_autoescape, FileSystemLoader
 import time
 from time import sleep
-import streamlit_authenticator as stauth  # pip install streamlit-authenticator
-import mysql.connector  # pip install mysql-connector-python
-from mysql.connector import FieldType  # pip install mysql-connector-python
+#import streamlit_authenticator as stauth  # pip install streamlit-authenticator
+#import mysql.connector  # pip install mysql-connector-python
+#from mysql.connector import FieldType  # pip install mysql-connector-python
 from sqlalchemy.sql import text  # pip install SQLAlchemy
+import sqlite3  # pip install db-sqlite3
 import sys
 import os
-import toml
+#import toml
 # from streamlit_drawable_canvas import st_canvas
 # from fn_drawables import process_canvas
 from fn_fileupload import process_image
 from menu import menu_with_redirect
+import sqlalchemy.exc
 
 # Redirect to Login.py if not logged in, otherwise show the navigation menu
 menu_with_redirect()
-
 
 hide_st_style = """
             <style>
@@ -42,13 +46,6 @@ hide_st_style = """
             """
 st.markdown(hide_st_style, unsafe_allow_html=True)
 
-authenticator = st.session_state.authenticator
-
-if st.session_state["authentication_status"]:
-    authenticator.logout("Logout", "sidebar")
-# ---------------------------------------------------------------------------------------------------------------# Initialize st.session_state.course to None
-
-
 if "username" not in st.session_state or st.session_state.username == '' or st.session_state.username == None:
     st.warning("You haven't logged in; Please login.")
 
@@ -56,27 +53,35 @@ elif "course" not in st.session_state or st.session_state.course == '' or st.ses
     st.warning(
         "You are not allowed to access this courese with the credentials you submitted.")
 
+
 else:
+    logout_button()
     st.title("Econ 3333 Problem Set 3")
 
-    conn = st.connection('mysql', type='sql', ttl=60)
-    query = f"SELECT * from Econ3333pset03c WHERE username = '{st.session_state.username}';"
-    hw_df = conn.query(query)
-    # st.write(f" hw_df datatype: \n \n {type(hw_df)}")
+    # sqlite database connection (local and unique to the user)
+    # conn = st.connection('students', type='sql', ttl=60)
+    conn = st.connection('students_db', type='sql', ttl=0)
+    tablename = "Econ3333_pset03e"
+    username = st.session_state.username
 
+    query0 = f"SELECT * from {tablename} WHERE username = '{st.session_state.username}';"
+    # query0 = f"SELECT * from {tablename} WHERE username = '{st.session_state.username}';"
+    hw_df = conn.query(query0)
+    # st.write(hw_df)
+
+# sys.exit()
+# if True:
     # Get column names and types
-    hw_column_names = hw_df.columns[2:].tolist()
-    hw_column_types = hw_df.dtypes[2:].tolist()
-
-    hw_column_types = [4, 4, 252, 4, 252, 252]
-
-    # st.write( f"hw_column_names:  \n \n {hw_column_names};  \n \n hw_column_types:  \n \n {hw_column_types}")
-
-    # sys.exit()
+    hw_column_names = hw_df.columns[1:].tolist()
+    hw_column_types = hw_df.dtypes[1:].tolist()
+    # st.write(
+    #     f'col names: {hw_column_names} \n \n col types: {hw_column_types}')
+    # hw_column_types = [2, 4, 5, 4, 252, 252] # change the types to match the actual types and numeric values
+    # change the types to match the actual types and numeric values
+    hw_column_types = ["num", "num", "blob", "num", "blob",
+                       "blob"]  # numeric, simple text, file uplaod,
 
     user_row = hw_df  # [hw_df['username'] == st.session_state.username]
-    # Get the user_row from the database
-    # Use a dictionary to store the default values
     default_vals = {}
 
     # Get the default values from the user_row of the database to a dictionary
@@ -94,47 +99,51 @@ else:
     # Create a dictionary to store the variables
     uploads = {}
 
-    # replace with your actual text column names
-    # text_columns = ['q6', 'q16', 'q19']
-    text_columns = ["q1"]
-
     # ---------------Questions and fetching of default values of questions starts here ---------------------------
     for i in range(len(hw_column_names)):
-        if hw_column_types[i] == FieldType.FLOAT:
+        if hw_column_types[i] == "num":
             user_inputs[hw_column_names[i]] = st.number_input(hw_column_names[i], min_value=None, value=float(
                 default_vals[hw_column_names[i]]), key=hw_column_names[i])
-        elif hw_column_types[i] == FieldType.VAR_STRING:
+        elif hw_column_types[i] == "text":
             user_inputs[hw_column_names[i]] = st.text_input(
                 hw_column_names[i], value=default_vals[hw_column_names[i]], key=hw_column_names[i])
-        elif hw_column_types[i] == FieldType.BLOB and hw_column_names[i] in text_columns:
+        elif hw_column_types[i] == "textarea":
             user_inputs[hw_column_names[i]] = st.text_area(
                 hw_column_names[i], value=default_vals[hw_column_names[i]], key=hw_column_names[i])
-        elif hw_column_types[i] == FieldType.BLOB:
+        elif hw_column_types[i] == "blob":  # this is for real blob data type
             upload2db, upload2templ = process_image(
                 hw_df, hw_column_names[i])
             user_inputs[hw_column_names[i]] = upload2db
             # uploads[f'q{i+1}'] = upload2templ
             uploads[hw_column_names[i]] = upload2templ
+    # st.write(f'userinpus in dict: {user_inputs}')
 
-    # sys.exit()
-
+# sys.exit()
+# if True:
+    # Insert some data with conn.session.
     with st.form(key="fields_form2"):
         submit_button = st.form_submit_button(label="save your work")
         if submit_button:
-            # st.write(f"username inside submit button: {username}")
             with conn.session as s:
-                sql = text('UPDATE Econ3333pset03c SET ' + ', '.join(
-                    [f'{q}=:{q}' for q in hw_column_names]) + ' WHERE username=:username;')
-
-                params = {
-                    **{q: user_inputs[q] for q in hw_column_names}, 'username': st.session_state.username}
-                s.execute(sql, params)
+                query1 = f'CREATE TABLE IF NOT EXISTS  {tablename} (username TEXT PRIMARY KEY, q1 FLOAT, q2  FLOAT, q3  FLOAT, q4  FLOAT,  q5 TEXT,   q6 TEXT  );'
+                s.execute(text(query1))
+                user_inputs['username'] = st.session_state.username
+                s.execute(
+                    text(
+                        f'INSERT OR REPLACE INTO {tablename} (username, q1, q2, q3, q4, q5, q6) VALUES (:username, :q1, :q2, :q3, :q4, :q5, :q6);'),
+                    params=user_inputs
+                )
                 s.commit()
-            st.write(
-                " Your work has been submitted successfully to database, but download a pdf file below for gradescope submission! 👍")
-
-        # df_new = conn.query(query, ttl=0)
-        # st.write(df_new)
+                st.success(
+                    " Saved to local database; now generate your pdf file!")
+                # st.write(user_inputs["q1"])
+                s.close()
+            # assuming engine is your SQLAlchemy engine
+        conn.reset()
+        conn = st.connection('students_db', type='sql', ttl=0)
+        # st.write(f'This is table: {tablename}')
+        df1 = conn.query(f'select * from {tablename};')
+        # st.dataframe(df1)
 
     submit = st.button("Generate PDF, don't forget to save your work before!")
 
@@ -154,9 +163,6 @@ else:
     if submit:
         # Start the progress bar
         progress = st.progress(0)
-
-        # Render the HTML template
-
         # Render the template with the user_inputs dictionary
         html = template.render(**merged_inputs)
 
@@ -168,9 +174,7 @@ else:
         progress.text('Generating PDF...')
         progress.progress(50)
 
-        incloud = True  # True  #
-
-        if incloud:
+        if st.session_state.incloud == True:
             pdf = pdfkit.from_string(html, False)  # when in cloud deployment
 
         # if local development:

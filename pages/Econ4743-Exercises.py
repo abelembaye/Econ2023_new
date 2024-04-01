@@ -1,4 +1,6 @@
 
+from sklearn.linear_model import LinearRegression  # pip install scikit-learn
+import matplotlib.pyplot as plt  # pip install matplotlib
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -32,8 +34,6 @@ from menu import menu_with_redirect
 
 # Redirect to Login.py if not logged in, otherwise show the navigation menu
 menu_with_redirect()
-import matplotlib.pyplot as plt # pip install matplotlib
-from sklearn.linear_model import LinearRegression  # pip install scikit-learn
 
 
 hide_st_style = """

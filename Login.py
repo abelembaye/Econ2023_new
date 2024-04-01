@@ -10,8 +10,17 @@ import sys
 import os
 import time
 from menu import menu
+import hmac
+from logout_button import logout_button
+from authent_streamlit_doc import check_password
+
 
 st.set_page_config(layout="wide")
+
+# Initialize st.session_state.incloud to None
+if "incloud" not in st.session_state:
+    # change this to True to enable cloud deployment
+    st.session_state["incloud"] = True  # False
 
 hide_st_style = """
             <style>
@@ -34,6 +43,8 @@ if "authenticator" not in st.session_state:
 if "authentication_status" not in st.session_state:
     st.session_state["authentication_status"] = None
 
+
+st.write("incloud: ", st.session_state.incloud)
 # ------------------------------------------------------------------------------------------
 conn = st.connection('mysql', type='sql', ttl=60)
 
@@ -53,7 +64,7 @@ if "course" not in st.session_state:
     st.session_state.course = None
 
 # Retrieve the course from Session State to initialize the widget
-st.session_state._course = st.session_state.course
+st.session_state._course = st.session_state.get('course', None)
 
 
 def set_course():
@@ -61,8 +72,11 @@ def set_course():
     st.session_state.course = st.session_state._course
 
 
+# Create a placeholder for the selection widget
+selection_placeholder = st.empty()
+
 # Selectbox to choose course
-selection = st.selectbox(
+selection = selection_placeholder.selectbox(
     "Please select your course and then wait few seconds for login form to appear:",
     [None, "Econ2013", "Econ4743", "Econ3333"],
     key="_course",
@@ -73,50 +87,21 @@ selection = st.selectbox(
 info_message = st.empty()
 
 if selection:
-    info_message.info("Please wait a moment while we load your course...")
+    # Clear the selection widget
+    selection_placeholder.empty()
 
-# This is authentication file fetch from db based on the course selected.
-if st.session_state.course is not None:
-    st.session_state.course = st.session_state.course
-    info = rosters_df.loc[rosters_df['id'] ==
-                          st.session_state.course, 'info'].values[0]
-else:
-    st.stop()
+    if not check_password():
+        st.stop()
 
-# If info is not None and not an empty string, otherwise change it to dictionary
-if pd.notnull(info) and info != '':
-    config = json.loads(info)  # loads the string to dictionary
+    else:
+        st.write(
+            f"Hi @{st.session_state.username}, you are sucessfully logged in and now select the folder in your course to navigate to.")
 
+logout_button()
 
-authenticator = stauth.Authenticate(
-    config['credentials'],
-    config['cookie']['name'],
-    config['cookie']['key'],
-    config['cookie']['expiry_days'],
-    config['preauthorized']
-)
+menu()
 
-if "authenticator" not in st.session_state or st.session_state.authenticator is None:
-    st.session_state.authenticator = authenticator
-
-# # # uncomment this if you want to use the login widget and especially in cloud deployment
-authenticator.login()
-
-# Clear the info message
-info_message.empty()
-
-
-if st.session_state.get("authentication_status") is None:
-    st.warning('Please enter your username and password')
-
-elif st.session_state["authentication_status"] is False:
-    st.error('Username/password is incorrect')
-
-elif st.session_state["authentication_status"]:
-    authenticator.logout("Logout", "sidebar")
-    st.write(f"You are logged in and you can now access the homework or assignment pertaining to your course")
-    menu()
-
+# sys.exit()
 
 # conda activate  cvenv309
 # streamlit run Login.py

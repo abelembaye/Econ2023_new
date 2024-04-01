@@ -1,4 +1,5 @@
 
+import sqlite3
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -27,9 +28,7 @@ import toml
 # from streamlit_drawable_canvas import st_canvas
 # from fn_drawables import process_canvas
 from fn_fileupload import process_image
-
 from menu import menu_with_redirect
-
 # Redirect to Login.py if not logged in, otherwise show the navigation menu
 menu_with_redirect()
 
@@ -168,9 +167,7 @@ else:
         progress.text('Generating PDF...')
         progress.progress(50)
 
-        incloud = True  # True  #
-
-        if incloud:
+        if st.session_state.incloud:
             pdf = pdfkit.from_string(html, False)  # when in cloud deployment
 
         # if local development:
