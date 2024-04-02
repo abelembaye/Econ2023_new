@@ -4,7 +4,7 @@
 import streamlit as st
 import pandas as pd
 import json
-import streamlit_authenticator as stauth  # pip install streamlit-authenticator
+# import streamlit_authenticator as stauth  # pip install streamlit-authenticator
 from sqlalchemy.sql import text  # pip install SQLAlchemy
 import sys
 import os

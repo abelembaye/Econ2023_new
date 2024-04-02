@@ -67,6 +67,7 @@ elif "course" not in st.session_state or st.session_state.course == '' or st.ses
 
 else:
     st.title("Econ 3333 Regression Analysis")
+    # st.subheader("Regression Analysis Using Python & Streamlit")
     logout_button()
 
     # sqlite database connection (local and unique to the user)
@@ -74,13 +75,14 @@ else:
     conn = st.connection('students_db', type='sql', ttl=0)
     tablename = "Econ3333_pset03e"
     username = st.session_state.username
-    st.title("Regression Analysis")
-    st.subheader("Regression Analysis Using Python & Streamlit")
 
     # 2. Upload Dataset
-    upload = st.file_uploader("Upload Your Dataset (In CSV Format)")
+    upload = st.file_uploader("Upload Your Dataset (In CSV Format) here")
     if upload is not None:
         data = pd.read_csv(upload)
+        # st.stop()
+    else:
+        st.warning("Please Upload Dataset")
 
     # 3. Show Dataset
     if upload is not None:
@@ -130,9 +132,9 @@ else:
             if dup == "No":
                 st.text("Ok No Problem")
 
-    if st.button('Save DataFrame'):
-        open('data_streamlit.csv', 'w').write(data.to_csv())
-        st.text("Saved To local Drive")
+    # if st.button('Save DataFrame'):
+    #     open('C:/Users/data_streamlit.csv', 'w').write(data.to_csv())
+    #     st.text("Saved To local Drive")
 
     # 8. Get Overall Statistics
     if upload is not None:
