@@ -1,0 +1,27 @@
+[
+  {
+    "qtype": "mc_quest",
+    "label": "This is an example of multiple choice question",
+    "options": ["Option A", "Option B", "Option C", "Option D"]
+  },
+  {
+    "qtype": "float_num",
+    "label": "This is  an example of a single numerical answer question"
+  },
+  {
+    "qtype": "oneline_text",
+    "label": "This is an example of one line text (maximum 60 words) question"
+  },
+  {
+    "qtype": "manyline_text",
+    "label": "This is  an example of multiple line text entering question"
+  },
+  {
+    "qtype": "upload_quest",
+    "label": "This is  an example of image or csv file upload question"
+  },
+  {
+    "qtype": "drawing_quest",
+    "label": "This is  an example of canvas drawing question"
+  }
+]

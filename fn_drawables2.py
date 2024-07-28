@@ -12,7 +12,7 @@ import seaborn as sns  # pip install seaborn
 import matplotlib.pyplot as plt  # pip install matplotlib
 
 
-def process_canvas(default_drawing_data):
+def process_canvas():
     canvas_width = 600
     canvas_height = 500
 
@@ -140,20 +140,6 @@ def process_canvas(default_drawing_data):
         # Convert the combined image to a base64 encoded string to be saved to database or template
         base64_combined = base64.b64encode(combined_io.getvalue()).decode()
         upload2db = base64_combined
-        # # Save img to a BytesIO object for comparison
-        # img_io = io.BytesIO()
-        # img.save(img_io, 'PNG')
-        # img_io.seek(0)
-
-        # # Convert img to a base64 encoded string
-        # base64_img = base64.b64encode(img_io.getvalue()).decode()
-
-        # # Compare the base64 encoded strings
-        # if base64_combined == base64_img:
-        #     # img and combined are the same, which means nothing was drawn
-        #     upload2db = default_drawing_data
-        # else:
-        #     upload2db = base64_combined
 
         # # Create a download button for the image
         # st.download_button(
@@ -163,6 +149,7 @@ def process_canvas(default_drawing_data):
         #     file_name='image01.png',
         #     mime='image/png'
         # )
+
         return upload2db
 
     # # Do something interesting with the JSON data
