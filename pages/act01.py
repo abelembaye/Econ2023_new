@@ -61,7 +61,7 @@ if "username" not in st.session_state or st.session_state.username == '' or st.s
 #         "You are not allowed to access this courese with the credentials you submitted.")
 
 else:
-    logout_button()
+    # logout_button()
 
     st.title("Class Activity")
 

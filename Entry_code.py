@@ -14,7 +14,7 @@ from menu import menu
 import hmac
 from logout_button import logout_button
 # from authent_streamlit_individual import check_password
-from authent_streamlit_global import check_password
+# from authent_streamlit_global import check_password
 
 st.set_page_config(layout="wide")
 
@@ -42,7 +42,7 @@ if "username" not in st.session_state:
 
 # st.write("incloud: ", st.session_state.incloud)
 # ------------------------------------------------------------------------------------------
-conn = st.connection('students_db', type='sql', ttl=60)
+# conn = st.connection('students_db', type='sql', ttl=60)
 
 # # Initialize st.session_state.course to None
 # if "course" not in st.session_state:
