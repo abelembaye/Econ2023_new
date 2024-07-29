@@ -111,9 +111,13 @@ else:
     # Use st.radio to display options as radio buttons
     st.write(thequestion)
     if question["qtype"] == "mc_quest":
-        # Display the image if the "img" key exists
+        # Display the image if the "img" key exists and handle errors
         if "img" in question:
-            st.image(question["img"])
+            try:
+                st.image("img15-4.png")
+            except Exception as e:
+                st.error(f"Error loading image: {e}")
+
         previous_option_value = default_vals.get(question_key, "")
 
         # Initialize a variable to hold the index of the previously selected option
