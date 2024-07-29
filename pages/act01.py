@@ -59,19 +59,15 @@ if "username" not in st.session_state:
     st.session_state.username = "you"
 
 st.title("Class Activity")
+home_directory = st.input_text("Enter where you want to save your work, for example 'C:\Users\aembaye' ")
 
 # Load the questions from the JSON file
 with open('questions_act01.json', 'r') as file:
     questions = json.load(file)
 
-# qtypes_possible= ["mc_quest","float_num","oneline_text", "manyline_text", "upload_quest","drawing_quest"]
-# default_vals = ["Option A", 2, "hi", "there are many things", "", ""]
-# Load default_user_inputs.json as default_vals
-
 try:
     # Get the user's home directory
-    home_directory = os.path.expanduser("~")
-
+    # home_directory = os.path.expanduser("~")
     # Define the path to the file in the home directory
     file_path = os.path.join(home_directory, "default_user_inputs.json")
 
