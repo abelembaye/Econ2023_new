@@ -10,7 +10,7 @@ from sqlalchemy.sql import text  # pip install SQLAlchemy
 import sys
 import os
 import time
-from menu import menu
+# from menu import menu
 import hmac
 from logout_button import logout_button
 # from authent_streamlit_individual import check_password

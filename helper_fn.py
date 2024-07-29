@@ -24,7 +24,8 @@ def previous_question():
 def finish_quiz():
     st.session_state.quiz_started = False
     st.session_state.current_question_index = -1
-    st.write("Work finished! Thank you for participating!")
+    st.write(
+        "Work finished! Thank you for participating! Now save your work and generate pdf to save")
 
 
 def base64_to_image(base64_string):

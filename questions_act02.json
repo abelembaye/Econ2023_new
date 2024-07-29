@@ -1,12 +1,13 @@
 [
   {
     "qtype": "mc_quest",
-    "label": "This is an example of multiple choice question",
-    "options": ["Option A", "Option B", "Option C", "Option D"]
+    "label": "Refer to Figure 15-4. A profit-maximizing monopoly will produce an output level of",
+    "options": ["A. Q3", "B. Q4.", "C. Q1.", "D.Q2."],
+    "img": "img15-4.PNG"
   },
   {
     "qtype": "float_num",
-    "label": "This is  an example of a single numerical answer question"
+    "label": "If a monopolist can sell 7 units when the price is $4 and 8 units when the price is $3, then marginal revenue of selling the eighth unit is equal to"
   },
   {
     "qtype": "oneline_text",
