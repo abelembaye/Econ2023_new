@@ -59,7 +59,9 @@ if "username" not in st.session_state:
     st.session_state.username = "you"
 
 st.title("Class Activity")
-home_directory = st.input_text("Enter where you want to save your work, for example 'C:\Users\aembaye' ")
+
+home_directory = st.text_input(
+    "Enter where you want to save your work, for example C:/Users/aembaye ")
 
 # Load the questions from the JSON file
 with open('questions_act01.json', 'r') as file:
