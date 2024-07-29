@@ -170,17 +170,17 @@ else:
 # Serialize user_inputs excluding or converting non-serializable data
 serializable_user_inputs = serialize_data(st.session_state.user_inputs)
 
-# save user entry in .json file
-save_button = st.button(label="save your work", key="save_button")
+# # save user entry in .json file
+# save_button = st.button(label="save your work", key="save_button")
 
-if save_button:
+# if save_button:
 
-    # Serialize and save user_inputs to default_user_inputs.json
-    with open(file_path, "w") as json_file:
-        json.dump(serializable_user_inputs, json_file)
+#     # Serialize and save user_inputs to default_user_inputs.json
+#     with open(file_path, "w") as json_file:
+#         json.dump(serializable_user_inputs, json_file)
 
-    # Inform the user of the full path where the file is saved
-    st.write(f"User input saved as .json file at {file_path}")
+#     # Inform the user of the full path where the file is saved
+#     st.write(f"User input saved as .json file at {file_path}")
 
 submit = st.button(
     "Generate PDF", key="generate_button")
