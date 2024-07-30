@@ -115,6 +115,7 @@ else:
         if "img" in question:
             try:
                 # st.image("img15-4.png")
+                st.write(f'this is the image name: {question["img"]}')
                 st.image(question["img"])
             except Exception as e:
                 st.error(f"Error loading image: {e}")
@@ -230,7 +231,7 @@ for index, (key, value) in enumerate(st.session_state.user_inputs.items()):
     </div>\n  <br> <br>   """
     elif qtype == "drawing_quest":
         processed_value = value
-        template += f"""<h2>Question {question_number}</h2><div style="width:700px; height:500px; padding:20px; text-align:center; border: 1px solid #787878"> 
+        template += f"""<h2>Question {question_number}</h2><div style="width:700px; height:500px; padding:20px; text-align:center; border: 1px solid #787878">
     <img src="data:image/png;base64, {processed_value}" style="max-width:75%; max-height:75%; object-fit: contain;" />
     </div>\n  <br> <br>   """
     else:

@@ -43,7 +43,7 @@
     "qtype": "mc_quest",
     "label": "Refer to Table 17-9. If Acme and Pinnacle operate to jointly maximize profits, then what quantity is sold?",
     "options": ["A. 800", "B. 700", "C. 600", "D. 500"],
-    "img": "img17-9.PNG"
+    "img": "img17-9.png"
   },
   {
     "qtype": "mc_quest",
@@ -54,6 +54,6 @@
       "C. Regardless of the strategy pursued by ABC, XYZ’s best strategy is to produce a high level of output, and for that reason producing a high level of output is a dominant strategy for XYZ.",
       "D. Our knowledge of game theory suggests that the most likely outcome of the game, if it is played only once, is for one firm to produce a low level of output and for the other firm to produce a high level of output."
     ],
-    "img": "img17-1.PNG"
+    "img": "img17-1.png"
   }
 ]
