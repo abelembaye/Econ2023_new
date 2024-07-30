@@ -1,28 +1,59 @@
 [
   {
     "qtype": "mc_quest",
-    "label": "Refer to Figure 15-4. A profit-maximizing monopoly will produce an output level of",
-    "options": ["A. Q3", "B. Q4.", "C. Q1.", "D.Q2."],
-    "img": "img15-4.PNG"
+    "label": "If a market is a duopoly and additional firms enter and do not cooperate, then",
+    "options": [
+      "A. price and quantity fall.",
+      "B. price and quantity rise.",
+      "C. price falls and quantity rises.",
+      "D. price rises and quantity falls."
+    ]
   },
   {
-    "qtype": "float_num",
-    "label": "If a monopolist can sell 7 units when the price is $4 and 8 units when the price is $3, then marginal revenue of selling the eighth unit is equal to"
+    "qtype": "mc_quest",
+    "label": "Other things the same, in which case is the quantity produced the highest?",
+    "options": [
+      "A. There is one firm.",
+      "B. There are two firms that successfully collude.",
+      "C. There are two firms in Nash equilibrium.",
+      "D. There are a very large number of firms."
+    ]
   },
   {
-    "qtype": "oneline_text",
-    "label": "This is an example of one line text (maximum 60 words) question"
+    "qtype": "mc_quest",
+    "label": "If duopolists colluded but then stopped colluding,",
+    "options": [
+      "A. price and quantity would rise.",
+      "B. price would rise and quantity would fall.",
+      "C. price would fall and quantity would rise.",
+      "D. price and quantity would fall."
+    ]
   },
   {
-    "qtype": "manyline_text",
-    "label": "This is  an example of multiple line text entering question"
+    "qtype": "mc_quest",
+    "label": "The prisoners' dilemma provides insights into the",
+    "options": [
+      "A. difficulty of maintaining cooperation.",
+      "B. benefits of avoiding cooperation.",
+      "C. benefits of government ownership of monopoly.",
+      "D. ease with which oligopoly firms maintain high prices."
+    ]
   },
   {
-    "qtype": "upload_quest",
-    "label": "This is  an example of image or csv file upload question"
+    "qtype": "mc_quest",
+    "label": "Refer to Table 17-9. If Acme and Pinnacle operate to jointly maximize profits, then what quantity is sold?",
+    "options": ["A. 800", "B. 700", "C. 600", "D. 500"],
+    "img": "img17-9.PNG"
   },
   {
-    "qtype": "drawing_quest",
-    "label": "This is  an example of canvas drawing question"
+    "qtype": "mc_quest",
+    "label": "Refer to Figure 17-1. Which of the following statements is correct?",
+    "options": [
+      "A. ABC can potentially earn its highest possible profit if it produces a high level of output, and for that reason it is a dominant strategy for ABC to produce a high level of output.",
+      "B. The highest possible combined profit for the two firms occurs when both produce a low level of output, and for that reason producing a low level of output is a dominant strategy for both firms.",
+      "C. Regardless of the strategy pursued by ABC, XYZ’s best strategy is to produce a high level of output, and for that reason producing a high level of output is a dominant strategy for XYZ.",
+      "D. Our knowledge of game theory suggests that the most likely outcome of the game, if it is played only once, is for one firm to produce a low level of output and for the other firm to produce a high level of output."
+    ],
+    "img": "img17-1.PNG"
   }
 ]
