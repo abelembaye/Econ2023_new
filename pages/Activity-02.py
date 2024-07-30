@@ -115,7 +115,7 @@ else:
         if "img" in question:
             try:
                 # st.image("img15-4.png")
-                st.write(f'this is the image name: {question["img"]}')
+                # st.write(f'this is the image name: {question["img"]}')
                 st.image(question["img"])
             except Exception as e:
                 st.error(f"Error loading image: {e}")
@@ -211,7 +211,7 @@ for index, (key, value) in enumerate(st.session_state.user_inputs.items()):
         questions) else "Unknown"
     question_number = index + 1  # Human-friendly question numbering
     if qtype == "mc_quest":
-        template += f"""<h2>Question {question_number}</h2><div style="width:100px; height:20px; padding:20px; text-align:left; border: 1px solid #787878">
+        template += f"""<h2>Question {question_number}</h2><div style="width:600px; height:20px; padding:20px; text-align:left; border: 1px solid #787878">
     {value}
 </div>\n <br> <br>  """
     elif qtype == "float_num":
