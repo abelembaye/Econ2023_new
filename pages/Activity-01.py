@@ -240,15 +240,6 @@ template += """
 </body>
 </html>
 """
-# Step 2: Get the directory of the current script
-script_dir = os.path.dirname(os.path.realpath(__file__))
-
-# Step 3: Create the full path for the HTML file
-html_file_path = os.path.join(script_dir, 'template.html')
-
-# Step 4: Write the template string to the HTML file
-with open(html_file_path, 'w') as file:
-    file.write(template)
 
 # sys.exit()
 # if True:

@@ -1,5 +1,5 @@
 # conda activate cenv4test   # or cvenv309
-# streamlit run Entry_code.py
+# streamlit run Home.py
 # If not installed, tar.gz file install from GITHUB: pip install https://github.com/abelembaye/drawable_package/raw/master/streamlit-drawable-canvas-0.9.3.0.tar.gz  # just try to see the URL of the .tar.gz file as outsider and add /raw/ before the branch name, tricky
 
 import streamlit as st

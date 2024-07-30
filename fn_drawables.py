@@ -35,7 +35,7 @@ def process_canvas(default_drawing_data):
     ysteps = (y_lim[1]-y_lim[0])/10
 
     # constant that are mentioned in
-    scaleFactors = [x_lim[0], x_lim[1], .1214, .775]
+    scaleFactors = [x_lim[1], y_lim[1], .1214, .775]
 
     # Create a figure and axis
     fig, ax = plt.subplots()
